@@ -1,5 +1,9 @@
 from tkinter import *
 from PIL import Image, ImageTk
+import Classify_Img as ci
+
+predictor = ci
+predictor.main()
 
 root = Tk()
 root.title('KittieGUI')
@@ -21,9 +25,12 @@ image = image.resize((300, 300))
 photoImage = ImageTk.PhotoImage(image)
 imgLabel = Label(rFrame, image=photoImage, height=300, width=300)
 imgLabel.image = photoImage
-imgLabel.pack(anchor='se', padx=10, pady=10)
 
-for i in range(50):
-    resultList.insert(END, i)
+predictions = predictor.predict()
+
+for item in predictions:
+    resultList.insert(END, item)
+
+imgLabel.pack(anchor='se', padx=10, pady=10)
 
 root.mainloop()
