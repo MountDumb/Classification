@@ -72,7 +72,7 @@ def predict():
             prediction = 'I don\'t know'
 
         predictionfilename = names[i]
-        prednamepairs.append((prediction, predictionfilename))
+        prednamepairs.append((prediction + ' : ' + predictionfilename))
 
     for p in prednamepairs:
         print(p)
