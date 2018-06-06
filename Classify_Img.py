@@ -4,7 +4,6 @@ from keras.layers import Conv2D, MaxPooling2D
 from keras.layers import Activation, Dropout, Flatten, Dense
 from keras import backend as K
 import helperfunctions as hf
-img_path, img_width, img_height = '', '', ''
 
 
 def main():
@@ -78,6 +77,7 @@ def predict():
         print(p)
 
     return prednamepairs
+
 
 if __name__ == '__main__':
     main()
