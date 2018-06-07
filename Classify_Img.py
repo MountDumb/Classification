@@ -12,7 +12,7 @@ def main():
     global img_width, img_height, img_path
 
     img_width, img_height = 150, 150
-    img_path = R'D:\py_projects\Classification\data\input'
+    img_path = 'data/input'
 
     if K.image_data_format() == 'channels_first':
         input_shape = (3, img_width, img_height)
@@ -44,9 +44,6 @@ def main():
     model.compile(loss='binary_crossentropy',
                   optimizer='rmsprop',
                   metrics=['accuracy'])
-
-
-def predict():
 
     imagegenerator = hf.get_absfilenames(img_path)
     outputs = []
@@ -81,4 +78,4 @@ def predict():
 
 if __name__ == '__main__':
     main()
-    predict()
+
