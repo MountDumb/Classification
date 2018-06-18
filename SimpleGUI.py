@@ -3,10 +3,7 @@ from PIL import Image, ImageTk
 import Classify_Img as ci
 from Predictor import *
 
-predictordd = ci
-pp = Predictor()
-
-print(pp.ImgPath)
+predictor = ci
 
 root = Tk()
 root.title('KittieGUI')
@@ -29,7 +26,7 @@ photoImage = ImageTk.PhotoImage(image)
 imgLabel = Label(rFrame, image=photoImage, height=300, width=300)
 imgLabel.image = photoImage
 
-predictions = predictordd.main()
+predictions = predictor.main()
 
 for item in predictions:
     resultList.insert(END, item)

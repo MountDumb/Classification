@@ -9,16 +9,28 @@ import helperfunctions as hf
 class Predictor(object):
 
     def __init__(self):
-        self._img_width, self._img_height = 150, 150
-        self._img_path = 'data/input'
+        self.__img_width, self._img_height = 150, 150
+        self.__img_path = 'data/input'
 
-    def set_img_path(self, new_path):
-        self._img_path = new_path
+    #region Properties
 
-    def get_img_path(self):
-        return self._img_path
+    @property
+    def img_width(self):
+        return self.__img_width
 
-    ImgPath = property(get_img_path, set_img_path)
+    @img_width.setter
+    def img_width(self, new_width):
+        self.__img_width = new_width
+
+    @property
+    def img_path(self):
+        return self.__img_path
+
+    @img_path.setter
+    def img_path(self, new_path):
+        self.__img_path = new_path
+
+    #endregion
 
 
 if __name__ == '__main__':

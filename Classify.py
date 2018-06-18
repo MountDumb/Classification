@@ -74,6 +74,8 @@ for i in range(itt):
 for p in prednamepairs:
     print(p)
 
+model
+
 
 
 

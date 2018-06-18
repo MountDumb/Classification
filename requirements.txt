@@ -1,4 +1,5 @@
 keras
 tensorflow-gpu
 Pillow
+matplotlib
 

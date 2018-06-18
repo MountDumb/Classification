@@ -62,7 +62,7 @@ validation_generator = test_datagen.flow_from_directory(
     batch_size=batch_size,
     class_mode='binary')
 
-model.fit_generator(
+hist = model.fit_generator(
     train_generator,
     steps_per_epoch=nb_train_samples // batch_size,
     epochs=epochs,
@@ -70,3 +70,5 @@ model.fit_generator(
     validation_steps=nb_validation_samples // batch_size)
 
 model.save_weights('Model_Weights.h5')
+
+hist.history.keys()
