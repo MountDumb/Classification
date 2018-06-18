@@ -9,28 +9,63 @@ import helperfunctions as hf
 class Predictor(object):
 
     def __init__(self):
-        self.__img_width, self._img_height = 150, 150
-        self.__img_path = 'data/input'
+        self.img_width, self.img_height = 150, 150
+        self.input_shape = (self.img_width, self.img_height, 3)
+        self.model = None
+        self.prediction_pairs = None
+        self.abs_paths = []
+        self.img_path = 'data/input'
 
-    #region Properties
+    def define_model(self):
+        model = Sequential()
+        model.add(Conv2D(32, (3, 3), input_shape=self.input_shape))
+        model.add(Activation('relu'))
+        model.add(MaxPooling2D(pool_size=(2, 2)))
 
-    @property
-    def img_width(self):
-        return self.__img_width
+        model.add(Conv2D(32, (3, 3)))
+        model.add(Activation('relu'))
+        model.add(MaxPooling2D(pool_size=(2, 2)))
 
-    @img_width.setter
-    def img_width(self, new_width):
-        self.__img_width = new_width
+        model.add(Conv2D(64, (3, 3)))
+        model.add(Activation('relu'))
+        model.add(MaxPooling2D(pool_size=(2, 2)))
 
-    @property
-    def img_path(self):
-        return self.__img_path
+        model.add(Flatten())
+        model.add(Dense(64))
+        model.add(Activation('relu'))
+        model.add(Dropout(0.5))
+        model.add(Dense(1))
+        model.add(Activation('sigmoid'))
+        self.model = model
 
-    @img_path.setter
-    def img_path(self, new_path):
-        self.__img_path = new_path
+    def activate_model(self):
+        self.model.load_weights('Model/Model_Weights.h5')
 
-    #endregion
+        self.model.compile(loss='binary_crossentropy',
+                      optimizer='rmsprop',
+                      metrics=['accuracy'])
+
+    def predict(self):
+        imagepaths = hf.get_absfilenames(self.img_path)
+        outputs = []
+
+        for item in imagepaths:
+            self.abs_paths.append(item)
+            img = load_img(item, target_size=(self.img_width, self.img_height))
+            x = img_to_array(img)
+            x = x.reshape((1,) + x.shape)
+            outputs.append(self.model.predict(x))
+
+        itt = len(outputs)
+        names = list(hf.get_filenames(self.img_path))
+        prednamepairs = []
+
+        for i in range(itt):
+            predictionfilename = names[i]
+
+            prednamepairs.append('{} : {}'.format(predictionfilename, outputs[i][0][0]))
+
+        self.prediction_pairs = prednamepairs
 
 
 if __name__ == '__main__':
