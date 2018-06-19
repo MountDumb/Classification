@@ -2,13 +2,14 @@ from tkinter import *
 from PIL import Image, ImageTk
 from Predictor import Predictor as pr
 
+
 def on_result_select(evt):
-    # Note here that Tkinter passes an event object to onselect()
     w = evt.widget
     index = int(w.curselection()[0])
     value = predictions.abs_paths[index]
     set_image(value)
     print('You selected item %d: "%s"' % (index, value))
+
 
 def set_image(img_path):
     img = Image.open(img_path)

@@ -17,5 +17,5 @@ plt.xlabel('Epochs')
 plt.ylabel('Loss')
 plt.legend()
 
-plt.Show()
+plt.show()
 
